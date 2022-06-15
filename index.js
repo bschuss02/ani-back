@@ -1,6 +1,7 @@
 //RESTART 1
 
 // packages
+require("express-async-errors")
 const express = require("express")
 const mongoose = require("mongoose")
 const config = require("config")
@@ -10,7 +11,6 @@ const { defaultRouter } = require("./src/routes/defaultRoutes")
 const { userRouter } = require("./src/routes/userRoutes")
 const { authRouter } = require("./src/routes/authRoutes")
 const { entryRouter } = require("./src/routes/entryRoutes")
-const { asyncErrorHandler } = require("./src/middleware/errorMiddleware")
 
 // create app
 const app = express()
@@ -18,6 +18,11 @@ const app = express()
 // production
 const helmet = require("helmet")
 const compression = require("compression")
+const { asyncErrorHandler } = require("./src/middleware/errorMiddleware")
+
+if (!config.get("jwtPrivateKey")) {
+	throw new Error("FATAL ERROR: jwtPrivateKey is undefined")
+}
 
 // connect db
 mongoose
@@ -27,7 +32,6 @@ mongoose
 
 // middleware
 app.use(express.json())
-app.use(asyncErrorHandler)
 app.use(helmet())
 app.use(compression())
 
@@ -36,6 +40,7 @@ app.use("/", defaultRouter)
 app.use("/api/user/", userRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/entry", entryRouter)
+app.use(asyncErrorHandler)
 
 // listen
 if (process.env.NODE_ENV !== "test") {

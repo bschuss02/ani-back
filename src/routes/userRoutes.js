@@ -30,6 +30,7 @@ userRouter.post("/", async (req, res) => {
 })
 
 userRouter.get("/me", auth, async (req, res) => {
+	throw new Error("fuck")
 	const user = await User.findOne({ _id: req.user._id })
 		.select({
 			password: 0,
