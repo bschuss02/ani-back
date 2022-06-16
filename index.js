@@ -12,13 +12,14 @@ const { userRouter } = require("./src/routes/userRoutes")
 const { authRouter } = require("./src/routes/authRoutes")
 const { entryRouter } = require("./src/routes/entryRoutes")
 
+const { asyncErrorHandler } = require("./src/middleware/errorMiddleware")
+
 // create app
 const app = express()
 
 // production
 const helmet = require("helmet")
 const compression = require("compression")
-const { asyncErrorHandler } = require("./src/middleware/errorMiddleware")
 
 if (!config.get("jwtPrivateKey")) {
 	throw new Error("FATAL ERROR: jwtPrivateKey is undefined")
