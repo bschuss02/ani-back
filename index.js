@@ -31,7 +31,7 @@ mongoose
 	.then(() => console.log("Connected to db..."))
 	.catch((e) => {
 		console.log("Failed to connect to db")
-		console.log('e::', e::)
+		console.log("e::", e)
 	})
 
 // middleware
