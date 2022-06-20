@@ -26,9 +26,9 @@ if (!config.get("jwtPrivateKey")) {
 }
 //
 // connect db
+console.log("db", config.get("db"))
 mongoose
 	.connect(config.get("db"))
-	//nothing
 	.then(() => console.log("Connected to db..."))
 	.catch(() => console.log("Failed to connect to db"))
 
