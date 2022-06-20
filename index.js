@@ -24,15 +24,14 @@ const compression = require("compression")
 if (!config.get("jwtPrivateKey")) {
 	throw new Error("FATAL ERROR: jwtPrivateKey is undefined")
 }
-//
+
 // connect db
-console.log("db::", config.get("db"))
 mongoose
 	.connect(config.get("db"))
 	.then(() => console.log("Connected to db..."))
 	.catch((e) => {
 		console.log("Failed to connect to db")
-		console.log("e:: ", e)
+		console.log('e::', e::)
 	})
 
 // middleware
