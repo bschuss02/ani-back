@@ -26,11 +26,14 @@ if (!config.get("jwtPrivateKey")) {
 }
 //
 // connect db
-console.log("db", config.get("db"))
+console.log("db::", config.get("db"))
 mongoose
 	.connect(config.get("db"))
 	.then(() => console.log("Connected to db..."))
-	.catch(() => console.log("Failed to connect to db"))
+	.catch((e) => {
+		console.log("Failed to connect to db")
+		console.log("e:: ", e)
+	})
 
 // middleware
 app.use(express.json())
